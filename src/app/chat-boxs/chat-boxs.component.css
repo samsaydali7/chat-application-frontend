@@ -1,0 +1,148 @@
+#chat-window{
+    height: 700px;
+    overflow: auto;
+    background-color:  rgba(163, 227, 230, 0.8);
+}
+
+#output p{
+    padding: 14px 0px;
+    margin: 0 20px;
+}
+
+
+/* Chat containers */
+.chat {
+    border: 2px solid #dedede;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 15px;
+    width: 55%;
+    float: left;
+}
+.chat strong, .chat p {
+    color: darkslategrey;
+}
+
+/* Darker chat container */
+.darker {
+    border-color: #ccc;
+    background-color: #ddd;
+    float: right;
+}
+
+/* Clear floats */
+.chat::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+/* Style images */
+.chat .w3-hide-small {
+    float: left;
+    max-width: 40px;
+    width: 100%;
+    margin-right: 20px;
+    border-radius: 50%;
+}
+
+/* Style the right image */
+.chat .w3-hide-small.right {
+    float: right;
+    margin-left: 20px;
+    margin-right:0;
+}
+
+/* Style time text */
+.time-right {
+    float: right;
+    color: #aaa;
+}
+
+/* Style time text */
+
+.chatHeader{
+    background-color: rgba(61, 223, 215, 0.74);
+    color: papayawhip;
+}
+.time-left {
+    float: left;
+    color: #999;
+}
+
+#output::after{
+    content: "";
+    clear: both;
+    display: table;
+}
+
+#chat-window::-webkit-scrollbar {
+    width: 4px;
+}
+ 
+#chat-window::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+ 
+#chat-window::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}
+
+.center {
+    line-height: 808px;
+    height: 808px;
+    text-align: center;
+}
+
+/* If the text has multiple lines, add the following: */
+.center p {
+    line-height: 1.5;
+    display: inline-block;
+    vertical-align: middle;  
+}
+.imageMessage{
+    width: 100%;
+    margin: 3px auto;
+    float: none;
+}
+.other{
+    background-color: rgba(231, 215, 200, 0.726);
+    color: rgba(0,0,0,1);
+    font-size: 20px;
+}
+.hide{
+    display: none;
+}
+.show{
+    display: block;
+}
+
+.upload-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+  }
+  
+  .btnn {
+    border: 2px solid gray;
+    color: gray;
+    background-color: white;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .upload-btn-wrapper input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+  }
+  .player{
+      width: 100%;
+      margin-top: 20px;
+  }

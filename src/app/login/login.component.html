@@ -1,0 +1,50 @@
+<!-- login component -->
+<div class="w3-container form  mainComponent">
+
+  <!-- Form -->
+  <div class="w3-padding-32 w3-margin-top" id="contact">
+    <div class="w3-center w3-container">
+      <h1>Welcome to ezChat</h1>
+      <p>please login or signup to start using ezchat services</p>
+      <div class="buttons">
+        <div class="w3-half w3-padding">
+          <button type="button" class="w3-button w3-block  w3-light-gray" routerLink="/signup">SIGN UP</button>
+        </div>
+        <div class="w3-half w3-padding">
+          <button type="button" class="w3-button w3-block  w3-light-gray">LEARN MORE</button>
+        </div>
+      </div>
+    </div>
+
+
+    <form>
+      <hr>
+      <!-- validations -->
+      <div class="w3-container">
+        <div class="padd w3-pale-red w3-leftbar w3-border-red" *ngIf="username_err">
+          <p>Username is empty or typed wrong</p>
+        </div>
+        <div class="padd w3-pale-red w3-leftbar w3-border-red" *ngIf="password_err">
+          <p>Password is empty or typed wrong</p>
+        </div>
+        <div class="padd w3-pale-red w3-leftbar w3-border-red" *ngIf="exist_err">
+          <p>{{errorMessage}}</p>
+        </div>
+        <!-- validations end -->
+
+      </div>
+      <div class="w3-section">
+        <label>Username</label>
+        <input class="w3-input w3-border" type="text" required [ngModelOptions]="{standalone: true}" [(ngModel)]="username">
+      </div>
+      <div class="w3-section">
+        <label>Password</label>
+        <input class="w3-input w3-border" type="password" required [ngModelOptions]="{standalone: true}" [(ngModel)]="password">
+      </div>
+      <br>
+      <button type="submit" class="w3-button w3-block w3-teal" (click)="logIn()">Login</button>
+    </form>
+    <br>
+
+  </div>
+</div>

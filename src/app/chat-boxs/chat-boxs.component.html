@@ -1,0 +1,226 @@
+<div class="w3-container w3-leftbar w3-border-blue" id="chatBox" *ngIf="contact;else other">
+
+    <div class="w3-bar chatHeader">
+
+        <div>
+            <img [src]='contact.profileImage' class="w3-bar-item w3-circle w3-hide-small" style="width:85px;">
+            <div class="w3-bar-item">
+                <span class="w3-large">{{contact.fullname}}</span>
+                <br>
+                <span>{{getStatus(contact.username)}}</span>
+            </div>
+            <button class=" w3-button w3-right w3-margin-right w3-xlarge">
+                <i class="fa fa-search"></i>
+            </button>
+            <button *ngIf="isBlocked(contact.username)" (click)="unBlockUser(contact.username)" class=" w3-button w3-right w3-margin-right w3-xlarge">
+                <i class="fa fa-unlock-alt w3-text-green"></i>
+            </button>
+            <button *ngIf="!isBlocked(contact.username)" (click)="blockUser(contact.username)" class=" w3-button w3-right w3-margin-right w3-xlarge">
+                <i class="fa fa-ban w3-text-red"></i>
+            </button>
+
+        </div>
+
+
+
+    </div>
+    <div id="chat-window">
+        <div id="output">
+            <div *ngFor="let message of getMessagesFromConversations();">
+                <div class="chat  w3-hover-teall " *ngIf="(message.sender == contact.username);else darker">
+                    <img [src]="contact.profileImage" alt="Avatar" class="w3-hide-small">
+                    <div *ngIf='(message.type == "text")'>
+                        <p>
+                            <strong>{{message.sender}}:</strong> {{message.message}}</p>
+
+                    </div>
+                    <div *ngIf='(message.type == "audio")'>
+                        <p>
+                            <strong>{{message.sender}}:</strong>
+                        </p>
+                        <audio controls="controls" controlsList="nodownload" style="width: 100%;">
+                            <source [src]="sanitizer.bypassSecurityTrustUrl(message.message)" />
+                        </audio>
+                    </div>
+                    <div *ngIf='(message.type == "video")'>
+                        <p>
+                            <strong>{{message.sender}}:</strong>
+                        </p>
+                        <video controls="controls" style="width: 100%;" controlsList="nodownload">
+                            <source [src]="sanitizer.bypassSecurityTrustUrl(message.message)" /> Your browser does not support the video tag.
+                        </video>
+                    </div>
+
+                    <div *ngIf='(message.type == "image")'>
+                        <p>
+                            <strong>{{message.sender}}:</strong>
+                        </p>
+                        <img (click)="openModal(message.message)" [src]="sanitizer.bypassSecurityTrustUrl(message.message)" class="imageMessage w3-hover-opacity">
+                    </div>
+                    <!-- Rest of Files -->
+                    <div *ngIf="message.type =='application' || message.type =='textfile'">
+                        <div class="w3-container w3-padding-16">
+                            <div style="margin: 10px auto w3-row">
+                                <div style="width:60px" class="w3-col">
+                                    <p class="w3-center">
+                                        <i [class]="iconStyle(message.type,message.message)" style="position: relative;top:10px" aria-hidden="true"></i>
+                                    </p>
+                                </div>
+                                <div class="w3-rest" style="position:relative;left:-30px">
+                                    <p style="margin:33px; position: relative;top:5px;font-size: 20px" class="w3-center w3-text-grey">{{message.message.name}}</p>
+                                </div>
+                            </div>
+                            <a class="w3-button w3-block w3-dark-grey" style="text-decoration:unset" (click)="DonloadFile(message.message.src,message.message.name)">Download</a>
+                        </div>
+                    </div>
+                    <!-- End of Rest of Files -->
+                    <span class="time-right w3-margin-right">{{message.date | date:'shortTime'}}</span>
+                </div>
+
+                <ng-template #darker>
+                    <div class="chat darker  w3-hover-teall ">
+                        <img [src]="user.profileImage" alt="Avatar" class="right w3-hide-small">
+                        <div *ngIf='(message.type == "text")'>
+                            <p>
+                                <strong>{{user.username}}:</strong> {{message.message}}</p>
+                        </div>
+                        <div *ngIf='(message.type == "audio")'>
+                            <p>
+                                <strong>{{message.sender}}:</strong>
+                            </p>
+                            <audio controls="controls" controlsList="nodownload" style="width: 100%;">
+                                <source [src]="message.message" />
+                            </audio>
+                        </div>
+                        <div *ngIf='(message.type == "video")'>
+                            <p>
+                                <strong>{{message.sender}}:</strong>
+                            </p>
+                            <video controls="controls" style="width: 100%;" controlsList="nodownload">
+                                <source [src]="message.message" /> Your browser does not support the video tag.
+                            </video>
+                        </div>
+                        <div *ngIf='(message.type == "image")'>
+                            <p>
+                                <strong>{{user.username}}:</strong>
+                            </p>
+                            <img (click)="openModal(message.message)" [src]="message.message" class="imageMessage w3-hover-opacity">
+                        </div>
+                        <!-- Rest of Files -->
+                        <div *ngIf="message.type =='application' || message.type =='textfile'">
+                            <div class="w3-container w3-padding-16" style="background-color: #ddd">
+                                <div style="margin: 10px auto w3-row">
+
+                                    <div style="width:60px" class="w3-col">
+                                        <p class="w3-center">
+                                            <i [class]="iconStyle(message.type,message.message)" style="position: relative;top:10px" aria-hidden="true"></i>
+                                        </p>
+                                    </div>
+                                    <div class="w3-rest" style="position:relative;left:-30px">
+                                        <p style="margin:33px; position: relative;top:5px;font-size: 20px" class="w3-center w3-text-grey">{{message.message.name}}</p>
+                                    </div>
+                                </div>
+                                <a class="w3-button w3-block w3-dark-grey" style="text-decoration:unset" (click)="DonloadFile(message.message.src,message.message.name)">Download</a>
+                            </div>
+                        </div>
+                        <!-- End of Rest of Files -->
+                        <span class="time-left w3-margin-left">{{message.date | date:'shortTime'}}
+                            <i class="fa" [ngClass]="getStatusClass(message)" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                </ng-template>
+            </div>
+
+
+        </div>
+        <!-- Image Modal -->
+        <div id="modal01" class="w3-modal" (click)="hideModal()" [ngClass]="isShowModal()">
+            <span class="w3-button w3-hover-red w3-xlarge w3-display-topright">&times;</span>
+            <div class="w3-modal-content w3-animate-zoom">
+                <img [src]="sanitizer.bypassSecurityTrustUrl(modalImage)" style="width:100%">
+            </div>
+        </div>
+
+    </div>
+    <div class="w3-row">
+        <input class="w3-input w3-col s8 m10  w3-hover-teal" type="text" [(ngModel)]="message" [ngModelOptions]="{standalone: true}"
+            (keyup.enter)="sendMessage()">
+        <button class="w3-btn w3-green w3-col s2 m1" (click)="sendMessage()">
+            <i class="fa fa-paper-plane" aria-hidden="true"></i>
+        </button>
+        <button class="w3-btn w3-ripple w3-red w3-col s2 m1" (click)="openFileModal()">
+            <i class="fa fa-paperclip" aria-hidden="true"></i>
+        </button>
+        <!-- Attach Modal -->
+        <div id="modal02" class="w3-modal" [ngClass]="isShowFileModal()">
+            <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:90%">
+
+                <div class="w3-center" *ngIf="file">
+                    <img [src]="file" alt="Avatar" style="width:100%" *ngIf="fileType=='image'" class="w3-margin-top">
+                    <div class="player">
+                        <audio controls="controls" *ngIf="fileType=='audio'" controlsList="nodownload" style="width: 100%;">
+                            <source [src]="file" />
+                        </audio>
+                        <video controls="controls" style="width: 100%;" controlsList="nodownload" *ngIf="fileType=='video'">
+                            <source [src]="file" /> Your browser does not support the video tag.
+                        </video>
+                    </div>
+
+                    <!-- Rest of Files -->
+                    <div class="w3-card-4" style="width:100%" *ngIf="fileType=='application' || fileType=='textfile'">
+                        <div class="w3-container">
+                            <div style="margin: 10px auto w3-row">
+
+                                <div style="width:60px" class="w3-col">
+                                    <p class="w3-center">
+                                        <i [class]="iconStyle(fileType,file)" style="position: relative;top:10px" aria-hidden="true"></i>
+                                    </p>
+                                </div>
+                                <div class="w3-rest" style="position:relative;left:-30px">
+                                    <p style="margin:33px; position: relative;top:5px;font-size: 20px" class="w3-center w3-text-grey">{{file.name}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!--a class="w3-button w3-block w3-dark-grey" style="text-decoration:unset" (click)="DonloadFile(file.src,file.name)">Download</a-->
+                    </div>
+                    <!-- End of Rest of Files -->
+                </div>
+                <div *ngIf="fileNotSupported" class="w3-padding-16">
+                    <h3 class="w3-margin-top w3-center w3-text-grey">File type not supported yet !</h3>
+                </div>
+
+                <div *ngIf="fileSizeIsLarge" class="w3-padding-16">
+                    <h3 class="w3-margin-top w3-center w3-text-grey">File size is larger than 25MB !</h3>
+                </div>
+
+                <form class="w3-container" *ngIf="showUploadButton">
+                    <div class="w3-section">
+                        <div class="upload-btn-wrapper w3-center">
+                            <button class="btnn">Upload a file</button>
+                            <input class="w3-input w3-margin-bottom" type="file" (change)="fileUploadChanged($event)">
+                        </div>
+                    </div>
+                </form>
+
+
+
+                <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+                    <button type="button" class="w3-button w3-red" (click)="hideFileModal()">Cancel</button>
+                    <button type="button" class="w3-button w3-green w3-right" [disabled]="!file" (click)="sendFile()">Send</button>
+                </div>
+
+            </div>
+        </div>
+        <!-- Attach Modal -->
+    </div>
+
+</div>
+<ng-template #other>
+    <div class=" w3-container w3-leftbar w3-border-blue ">
+
+        <div class="other center">
+            <p>Select chat or contact to start chatting</p>
+        </div>
+    </div>
+
+</ng-template>

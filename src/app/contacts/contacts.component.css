@@ -1,0 +1,13 @@
+.tabs{
+    width: 85%;
+    margin: 50px auto;
+}
+*{
+    text-align: center;
+}
+.hid{
+    display: none;
+}
+.showin{
+    display: block;
+}

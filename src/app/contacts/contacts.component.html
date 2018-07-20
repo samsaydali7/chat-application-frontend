@@ -1,0 +1,89 @@
+<app-sidenav [user]='user'></app-sidenav>
+<div class="w3-container w3-margin-left w3-margin-rigth">
+  <h1>Contacts Control</h1>
+
+  <div class="tabs">
+    <div class="w3-row">
+      <a (click)="openTab('Contacts');">
+        <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-padding" [ngClass]="ifSelected('Contacts')">Contacts</div>
+      </a>
+      <a (click)="openTab('Search');">
+        <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-padding " [ngClass]="ifSelected('Search')">Search</div>
+      </a>
+      <a (click)="openTab('Requests');">
+        <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-padding" [ngClass]="ifSelected('Requests')">Requests  <span class="w3-badge w3-red" *ngIf="hasRequests()">{{getRequestsLength()}}</span> </div>
+      </a>
+    </div>
+
+    <div id="Contacts" class="w3-container" [ngClass]="isActive('Contacts')">
+      <div class="w3-row  w3-margin" style="overflow: auto;">
+        <div class="w3-card-4 w3-margin w3-teal w3-center" style="width:400px;display:inline-block" *ngFor="let contact of contacts">
+          <h3 class="w3-margin">{{contact.fullname}}</h3>
+          <img [src]="contact.profileImage" class="w3-circle" [alt]="contact.username" width="90%">
+          <h4 class="w3-margin">@{{contact.username}}</h4>
+          <button class="w3-button w3-green w3-margin">Chat</button>
+          <button class="w3-button w3-pink w3-margin" *ngIf="isBlocked(contact.username);else block" (click)="unBlockUser(contact.username)">Unblock</button>
+          <ng-template #block>
+            <button class="w3-button w3-pink w3-margin" (click)="blockUser(contact.username)">Block</button>
+          </ng-template>
+          <button class="w3-button w3-red w3-margin" (click)="deleteContact(contact.username)">Delete</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="Search" [ngClass]="isActive('Search')">
+      <h3 class="w3-margin-top w3-margin-bottom">Input username for searching</h3>
+      <div class="w3-panel">
+        <div class="row">
+          <div class="w3-col s0 m2"></div>
+
+          <div class="input-group w3-col s12 m5">
+            <input class="form-control" (keyup)="search()" [(ngModel)]="searchString">
+          </div>
+
+          <div class="input-group w3-col s12 m3">
+            <input class="form-control" [(ngModel)]="searchPIN" placeholder="Input PIN for private accounts">
+            <button class="input-group-addon" (click)="addUserByPIN()">
+              <i class="fa fa-slack"></i>
+            </button>
+          </div>
+
+          <div class="w3-col s0 m2"></div>
+        </div>
+
+        <div class="row">
+          <div class="w3-col s0 m3"></div>
+          <ul class="w3-ul w3-card-4 w3-col s12 m6 w3-margin-top w3-teal">
+            <li class="w3-bar" *ngFor="let result of getSearchResult()">
+              <span class="w3-bar-item w3-button w3-xxxlarge w3-right" (click)="addContact(result.username)">
+                <i class="fa fa-plus-square" aria-hidden="true"></i>
+              </span>
+              <img [src]="result.profileImage" class="w3-bar-item w3-circle w3-hide-small" style="width:100px">
+              <div class="w3-bar-item">
+                <h2 class="w3-large">{{result.fullname}}</h2>
+                <h4>@{{result.username}}</h4>
+              </div>
+            </li>
+          </ul>
+          <div class="w3-col s0 m3"></div>
+        </div>
+
+      </div>
+    </div>
+
+    <div id="Requests" class="w3-container" [ngClass]="isActive('Requests')" width="50%">
+      <div class="w3-row  w3-margin" style="overflow: auto;">
+        <div class="w3-card-4 w3-margin w3-dark-grey" style="width:400px;display:inline-block" *ngFor="let request of getRequests()">
+          <div class="w3-container w3-center w3-margin">
+            <h2 class="w3-margin">Friend request</h2>
+            <img [src]="request.profileImage" alt="Avatar" style="width:100%">
+            <h4 class="w3-margin">{{request.fullname}}</h4>
+            <h3 class="w3-margin">@{{request.username}}</h3>
+            <button class="w3-button w3-green" (click)="acceptContact(request.username)">Accept</button>
+            <button class="w3-button w3-red" (click)="declineContact(request.username)">Decline</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

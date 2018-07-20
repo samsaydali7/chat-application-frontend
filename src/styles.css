@@ -1,1 +1,43 @@
 /* You can add global styles to this file, and also import other style files */
+.jumbotron{
+    background-color: #363859;
+    color: rgb(184, 191, 212);
+
+}
+.btn-danger{
+    background-color: #D37537;
+    border-color: #D37537;
+
+ 
+
+}
+.btn-outline-success{
+    border-color:#D37537
+    ;
+    color: #D37537
+    ;
+
+}
+.btn-outline-success:hover{
+    background-color: #DDBB92;
+}
+body::-webkit-scrollbar {
+    width: 1em;
+}
+ 
+body::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+ 
+body::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}
+body{
+    zoom: 70%;
+}
+body{
+    color: lightgray;
+    background-image: url("./assets/backgrounds/wall5.jpg");
+    font-family: 'Roboto';
+}
