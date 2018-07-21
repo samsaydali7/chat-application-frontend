@@ -1,4 +1,4 @@
-h1{
+h2{
     text-align: center;
     margin-bottom: 40px;
     margin-top: 20px;
@@ -35,7 +35,7 @@ h1{
 .loader {
     border: 16px solid #f3f3f3;
     border-radius: 50%;
-    border-top: 16px solid #3498db;
+    border-top: 16px solid #444444;
     width: 300px;
     height: 300px;
     margin: 190px auto;

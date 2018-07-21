@@ -1,6 +1,6 @@
-<div class="w3-container" id="chatBox" *ngIf="contact;else other">
+<div id="chatBox" *ngIf="contact;else other">
 
-<div class="w3-card-4">
+<div class="">
     <div class="w3-bar chatHeader w3-theme-l1">
 
         <div>
@@ -22,7 +22,7 @@
 
 
     </div>
-    <div id="chat-window" class="w3-theme-d1">
+    <div id="chat-window" class="w3-theme-d3">
         <div id="output">
             <div *ngFor="let message of getMessagesFromConversations();">
                 <div class="chat  w3-hover-teall " *ngIf="(message.sender == contact.username);else darker">
@@ -215,7 +215,7 @@
 
 </div>
 <ng-template #other>
-    <div class=" w3-container w3-leftbar w3-border-theme2 ">
+    <div class="">
 
         <div class="other center w3-theme-l4">
             <p>Select chat or contact to start chatting</p>

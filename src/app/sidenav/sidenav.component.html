@@ -1,9 +1,9 @@
 
 
-<ul class="w3-bar w3-xxlarge w3-theme-d4">
+<ul class="w3-bar w3-xxlarge w3-theme-d4" style="margin-bottom: 0">
     <img [src]="user.profileImage" class="w3-bar-item w3-right w3-margin-right w3-hide-small" style="width:86px;border-radius:100%">
-    <a routerLink="/main" class="w3-bar-item w3-button "><i class="fa fa-comments-o"></i></a>
-    <a routerLink="/contacts" class="w3-bar-item w3-button"><i class="fa fa-users"></i></a>
+    <a routerLink="/main" class="w3-bar-item w3-button "><i class="fa fa-comments-o"></i><span *ngIf="getUnreadCount()>0" style="font-size: 15px !important" class="w3-badge w3-right w3-small w3-green">{{getUnreadCount()}}</span></a>
+    <a routerLink="/contacts" class="w3-bar-item w3-button"><i class="fa fa-users"></i><span style="font-size: 15px !important" class="w3-badge w3-right w3-small w3-green" *ngIf="getReqestsCount()>0">{{getReqestsCount()}}</span></a>
     <a routerLink="/profile" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
     <a href="/" class="w3-bar-item w3-button" (click)="logout()"><i class="fa fa-sign-in"></i></a>
 </ul>

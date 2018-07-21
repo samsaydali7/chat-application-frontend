@@ -1,9 +1,9 @@
 <app-sidenav [user]='user'></app-sidenav>
-<div class="row">
-    <div class="col-md-4" *ngIf="user">
+<div class="w3-row" >
+    <div class="w3-col m3" *ngIf="user">
         <app-contatcs-list [user]='user' (onSelectContact)="selectContact($event)"></app-contatcs-list>
     </div>
-    <div class="col-md-8" *ngIf="user">
+    <div class="w3-col m9" *ngIf="user">
         <app-chat-boxs [user]='user' [contact]='selectedContact'></app-chat-boxs>
     </div>
 </div>

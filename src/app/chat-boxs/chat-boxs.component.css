@@ -1,5 +1,5 @@
 #chat-window{
-    height: 700px; 
+    height: 116vh;
     overflow: auto;
     /*background-color:  rgba(163, 227, 230, 0.8);*/
 }
@@ -91,8 +91,8 @@
 }
 
 .center {
-    line-height: 808px;
-    height: 808px;
+    line-height: 132vh;
+    height: 132vh;
     text-align: center;
 }
 

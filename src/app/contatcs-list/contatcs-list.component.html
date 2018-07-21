@@ -1,7 +1,6 @@
-<div class="w3-container">
 
-<div class="back w3-theme-d1">
-  <h1 >Conversations</h1>
+<div class="back w3-theme" style="height: 132vh;">
+  <h2 >Conversations</h2>
   <div *ngIf="isReady(); else loading">
     <ul class="w3-ul win">
       <li class="w3-bar w3-hover-theme2 w3-leftbar lis" [ngClass]="stateClass(contact.username)" *ngFor="let contact of user.contacts" (click)="selectContact(contact)">
@@ -23,5 +22,4 @@
   <ng-template #loading>
     <div class="loader"></div>
   </ng-template>
-</div>
 </div>

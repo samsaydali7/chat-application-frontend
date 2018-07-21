@@ -20,4 +20,22 @@ export class SidenavComponent implements OnInit {
     this.chatService.logout();
   }
 
+  getReqestsCount(){
+
+    //return this.user.contactsRequests.length;
+    return this.chatService.user.contactsRequests.length;
+  }
+  getUnreadCount(){
+    //{{conversations[contact.username].unreadCount}}
+    var contacts = this.chatService.user.contacts;
+    var conv = this.chatService.conversations;
+
+    var count = 0;
+
+    contacts.forEach((contact)=>{
+      count += conv[contact.username].unreadCount
+    })
+    return count;
+  }
+
 }

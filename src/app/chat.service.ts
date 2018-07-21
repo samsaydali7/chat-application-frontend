@@ -12,7 +12,7 @@ import { EncryptionService } from './encryption.service';
 @Injectable()
 export class ChatService {
   private socketUrl;
-  private url = "http://192.168.1.254:80/";
+  private url = "http://192.168.1.254:81/";
   public socket;
   private userInfo = {};
   public user: User = new User();

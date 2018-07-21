@@ -69,8 +69,8 @@ export class ContatcsListComponent implements OnInit {
     if(lastMessage == "no nessages yet")
     return "no nessages yet";
     var arr = lastMessage.split(": ");
-    if((<string>arr[1]).length > 37){
-      return (<string>arr[1]).substring(0,37) + ".."
+    if((<string>arr[1]).length > 27){
+      return (<string>arr[1]).substring(0,27) + ".."
     }
     return arr[1];
   }
