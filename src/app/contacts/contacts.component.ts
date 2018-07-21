@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { User } from "../User";
 import { ChatService } from "../chat.service";
 import { Contact } from '../Contact';
+import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'app-contacts',
   templateUrl: './contacts.component.html',
@@ -15,7 +16,7 @@ export class ContactsComponent implements OnInit {
   public searchString = '';
   public searchPIN = '';
 
-  constructor(private chatService:ChatService,private router:Router) { 
+  constructor(private chatService:ChatService,private router:Router,public sanitizer:DomSanitizer) { 
     this.user = this.chatService.user;
     this.contacts = this.user.contacts;
   }
@@ -40,10 +41,10 @@ export class ContactsComponent implements OnInit {
   }
   public ifSelected(tab:string){
     if(this.selected == tab){
-      return " w3-border-teal";
+      return "w3-border-theme2";
     }
     else{
-      return "";
+      return "w3-border-theme3";
     }
   }
   public search(){

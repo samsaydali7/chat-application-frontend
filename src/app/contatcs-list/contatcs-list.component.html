@@ -1,16 +1,21 @@
 <div class="w3-container">
 
-<div class="back">
+<div class="back w3-theme-d1">
   <h1 >Conversations</h1>
   <div *ngIf="isReady(); else loading">
     <ul class="w3-ul win">
-      <li class="w3-bar w3-hover-teal w3-leftbar lis" [ngClass]="stateClass(contact.username)" *ngFor="let contact of user.contacts" (click)="selectContact(contact)">
+      <li class="w3-bar w3-hover-theme2 w3-leftbar lis" [ngClass]="stateClass(contact.username)" *ngFor="let contact of user.contacts" (click)="selectContact(contact)">
         <span class="w3-badge w3-green w3-right w3-margin-right" *ngIf="conversations[contact.username].unreadCount > 0">{{conversations[contact.username].unreadCount}}</span>
-        <img [src]="contact.profileImage" class="w3-bar-item w3-circle w3-hide-small" style="width:85px;">
+        <img [src]="sanitizer.bypassSecurityTrustUrl(contact.profileImage)" class="w3-bar-item w3-circle w3-hide-small" style="width:85px;">
         <div class="w3-bar-item">
           <span class="w3-large">{{contact.fullname}}</span>
           <br>
-          <span>{{conversations[contact.username].lastMessage}}</span>
+          <span style="font-weight: bold">{{getLMSender(contact)}}</span>
+          <span *ngIf="isText(getLM(contact))">{{getLM(contact)}}</span>
+          <span *ngIf="isImage(getLM(contact))"><i class="fa fa-picture-o" aria-hidden="true"></i></span>
+          <span *ngIf="isVideo(getLM(contact))"><i class="fa fa-video-camera" aria-hidden="true"></i></span>
+          <span *ngIf="isAudio(getLM(contact))"><i class="fa fa-volume-up" aria-hidden="true"></i></span>
+          <span *ngIf="isFile(getLM(contact))"><i class="fa fa-file" aria-hidden="true"></i></span>
         </div>
       </li>
     </ul>

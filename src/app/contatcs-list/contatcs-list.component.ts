@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Contact } from '../Contact';
 import { ChatService } from '../chat.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-contatcs-list',
@@ -13,7 +14,7 @@ export class ContatcsListComponent implements OnInit {
   @Output() onSelectContact = new EventEmitter();
   public conversations = {};
 
-  constructor(private chatService: ChatService) {
+  constructor(private chatService: ChatService,public sanitizer:DomSanitizer) {
     this.conversations = chatService.conversations;
   }
 
@@ -35,7 +36,7 @@ export class ContatcsListComponent implements OnInit {
       colorClass += "w3-border-green"
     }
     else
-      colorClass += "w3-border-blue";
+      colorClass += "w3-border-theme2";
     if (contact == this.chatService.contact.username) {
       colorClass += " w3-gray";
     }
@@ -54,6 +55,50 @@ export class ContatcsListComponent implements OnInit {
   }
   getConversations(){
     return this.chatService.getConversations();
+  }
+
+  getLMSender(contact:Contact){
+    var lastMessage = this.conversations[contact.username].lastMessage;
+    if(lastMessage == "no nessages yet")
+      return "";
+    var arr = lastMessage.split(": ");
+    return arr[0]+":";
+  }
+  getLM(contact:Contact){
+    var lastMessage = this.conversations[contact.username].lastMessage;
+    if(lastMessage == "no nessages yet")
+    return "no nessages yet";
+    var arr = lastMessage.split(": ");
+    if((<string>arr[1]).length > 37){
+      return (<string>arr[1]).substring(0,37) + ".."
+    }
+    return arr[1];
+  }
+
+  isText(string:string){
+    if(string == "file"||string == "image" || string == "video"|| string == "audio")
+      return false;
+    return true;
+  }
+  isImage(string:string){
+    if(string == "image")
+      return true;
+    return false;
+  }
+  isVideo(string:string){
+    if(string == "video")
+      return true;
+    return false;
+  }
+  isAudio(string:string){
+    if(string == "audio")
+      return true;
+    return false;
+  }
+  isFile(string:string){
+    if(string == "file")
+      return true;
+    return false;
   }
 
 

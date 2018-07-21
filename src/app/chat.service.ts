@@ -251,10 +251,19 @@ export class ChatService {
 
     if (this.convReady) {
       if (data.type == "text") {
-        this.conversations[sender].lastMessage = data.message;
+        this.conversations[sender].lastMessage = `${data.sender}: ${data.message}`;
       }
       else if (data.type == "image") {
-        this.conversations[sender].lastMessage = "image";
+        this.conversations[sender].lastMessage = `${data.sender}: image`;
+      }
+      else if (data.type == "video") {
+        this.conversations[sender].lastMessage = `${data.sender}: video`;
+      }
+      else if (data.type == "audio") {
+        this.conversations[sender].lastMessage = `${data.sender}: audio`;
+      }
+      else if (data.type == "application" || data.type == "textfile") {
+        this.conversations[sender].lastMessage = `${data.sender}: file`;
       }
       if (sender == this.user.username || sender == this.contact.username) {
         if (data.sender == this.contact.username) {

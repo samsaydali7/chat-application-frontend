@@ -1,7 +1,7 @@
 #chat-window{
-    height: 700px;
+    height: 700px; 
     overflow: auto;
-    background-color:  rgba(163, 227, 230, 0.8);
+    /*background-color:  rgba(163, 227, 230, 0.8);*/
 }
 
 #output p{
@@ -63,7 +63,7 @@
 /* Style time text */
 
 .chatHeader{
-    background-color: rgba(61, 223, 215, 0.74);
+    /*background-color: rgba(61, 223, 215, 0.74);*/
     color: papayawhip;
 }
 .time-left {
