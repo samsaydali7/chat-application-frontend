@@ -12,7 +12,7 @@ import { EncryptionService } from './encryption.service';
 @Injectable()
 export class ChatService {
   private socketUrl;
-  private url = "http://192.168.1.254:81/";
+  private url = "https://warm-castle-70578.herokuapp.com/";
   public socket;
   private userInfo = {};
   public user: User = new User();
