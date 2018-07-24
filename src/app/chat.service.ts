@@ -12,7 +12,7 @@ import { EncryptionService } from './encryption.service';
 @Injectable()
 export class ChatService {
   private socketUrl;
-  private url = "https://warm-castle-70578.herokuapp.com/";
+  private url = "http://192.168.1.254:80/";
   public socket;
   private userInfo = {};
   public user: User = new User();
@@ -230,6 +230,9 @@ export class ChatService {
   public sendMessage(message) {
     let encMessage = JSON.parse(JSON.stringify(message));
     if(message.type == 'text'){
+      if(message.message == ""){
+        return;
+      }
       encMessage.message = this.enc.encrypt(encMessage.message,this.user.contacts[this.findIndexOfContact(message.reciver)].publicKey);
     } 
     this.socket.emit('chat', encMessage);
